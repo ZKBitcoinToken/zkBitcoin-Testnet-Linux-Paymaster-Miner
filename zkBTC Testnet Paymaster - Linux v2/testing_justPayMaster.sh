@@ -52,6 +52,31 @@ then
     yarn install
 fi
 
+
+ Check for dotnet
+if ! command -v dotnet &> /dev/null
+then
+    echo "dotnet 5.0 is not found or not installed."
+    echo "Installing dotnet 5.0..."
+
+    # Add Microsoft package signing key and repository
+    wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    sudo apt-get update; \
+    sudo apt-get install -y apt-transport-https && \
+    sudo apt-get update && \
+    sudo apt-get install -y dotnet-sdk-5.0
+
+    # Verify the installation
+    dotnet --version
+
+    echo "dotnet 5.0 is installed. Rerun the script to start."
+
+else
+    echo "dotnet 5.0 is already installed."
+fi
+
+
 # Change directory to the location of your TypeScript script
 cd aPayMaster/
 
@@ -77,13 +102,5 @@ fi
 # Run the TypeScript script in the background
 yarn hardhat deploy-zksync --script use-paymaster.ts &
 
-cd ..
 
-# Check for .NET Core
-if ! command -v dotnet &> /dev/null
-then
-    echo ".NET Core is not found or not installed,"
-    echo "download and install from https://www.microsoft.com/net/download/windows/run"
-    exit 1
-fi
 

@@ -30,6 +30,29 @@ then
     exit 1
 fi
 
+
+:: Check for dotnet
+where dotnet --version >nul 2>&1
+if %errorlevel% NEQ 0 (
+    echo dotnet 5.0 is not found or not installed.
+    echo then run script again to install depenicies
+
+    sudo apt-get update; \
+    sudo apt-get install -y apt-transport-https && \
+    sudo apt-get update && \
+    sudo apt-get install -y dotnet-sdk-5.0
+
+    # Verify the installation
+
+    dotnet --version
+ 
+    echo dotnet 5.0 is installed rerun script to start
+
+    pause
+    goto end
+)
+
+
 # Check for Yarn
 if ! command -v yarn &> /dev/null
 then
@@ -49,6 +72,28 @@ then
     echo "Running yarn install to install project dependencies..."
 
     yarn install
+fi
+
+#Check for dotnet
+if ! command -v dotnet &> /dev/null
+then
+    echo "dotnet 5.0 is not found or not installed."
+    echo "Installing dotnet 5.0..."
+
+    # Add Microsoft package signing key and repository
+    wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    sudo apt-get update; \
+    sudo apt-get install -y apt-transport-https && \
+    sudo apt-get update && \
+    sudo apt-get install -y dotnet-sdk-5.0
+
+    # Verify the installation
+    dotnet --version
+
+    echo "dotnet 5.0 is installed. Rerun the script to start."
+else
+    echo "dotnet 5.0 is already installed."
 fi
 
 # Change directory to the location of your TypeScript script
