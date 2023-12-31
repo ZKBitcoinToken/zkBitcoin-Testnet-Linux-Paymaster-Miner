@@ -33,6 +33,8 @@ to run the miner + paymaster
 or
 
 ./testing_justPayMaster.sh
+
+
 to test PayMaster script
 
 or
