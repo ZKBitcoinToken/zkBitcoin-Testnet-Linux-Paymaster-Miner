@@ -26,7 +26,7 @@ Go to Downloaded Folder and Open Terminal
 
 TO RUN SCRIPT OPEN TERMINAL IN FOLDER AND TYPE
 
-./1runPayMaster.sh
+./1runPayMaster_and_Miner
 
 to run the miner + paymaster
 
@@ -39,7 +39,7 @@ to test PayMaster script
 
 or
 
-./1mineZKBTC_No_Paymaster.sh
+./1ZKBTC_No_Paymaster.sh
 
 Mines normally using your eth account to mint the tokens with no paymaster
 
