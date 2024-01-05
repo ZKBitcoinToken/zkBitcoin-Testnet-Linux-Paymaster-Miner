@@ -53,7 +53,7 @@ then
 fi
 
 
- Check for dotnet
+#Check for dotnet
 if ! command -v dotnet &> /dev/null
 then
     echo "dotnet 5.0 is not found or not installed."

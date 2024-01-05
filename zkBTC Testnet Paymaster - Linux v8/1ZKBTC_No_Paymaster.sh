@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 echo Normal minting costs us ETH and doesnt use the paymaster make sure UsePayMaster=false
 
- Check for dotnet
+#Check for dotnet
 if ! command -v dotnet &> /dev/null
 then
     echo "dotnet 5.0 is not found or not installed."
