@@ -31,9 +31,8 @@ then
 fi
 
 
-:: Check for dotnet
-where dotnet --version >nul 2>&1
-if %errorlevel% NEQ 0 (
+if ! command -v dotnet &> /dev/null
+then
     echo dotnet 5.0 is not found or not installed.
     echo then run script again to install depenicies
 
@@ -50,7 +49,9 @@ if %errorlevel% NEQ 0 (
 
     pause
     goto end
-)
+fi
+
+
 
 
 # Check for Yarn
