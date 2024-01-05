@@ -14,6 +14,17 @@ var PAYMASTER_ADDRESS = "0x7704484E22bD429c0fDE0049e09c65F856D777da";
 var TOKEN_ADDRESS = "0x9EF042fCc41569d94a0d0Ba6B050cdA75cC9B971";
 
 
+// Global error handlers
+process.on('uncaughtException', (error) => {
+    console.error('Uncaught Exception:', error);
+    // Additional logic for handling the exception
+    // Be cautious about not exiting, the application state might be unstable
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    // Additional logic for handling the rejection
+});
 
 
 function timeout(ms, promise) {
@@ -28,7 +39,7 @@ function timeout(ms, promise) {
 
 
 
-function getToken(hre: HardhatRuntimeEnvironment, wallet: Wallet) {
+async function getToken(hre: HardhatRuntimeEnvironment, wallet: Wallet) {
 const zkBitcoinABI = [
 		{
         "inputs": [
@@ -186,7 +197,7 @@ var gasLimitBump = 86;
 
  while (true) {
 				 // to prevent infinite loop
-				 if(attempt > 100){
+				 if(attempt > 200){
 					break;
 				}
 					attempt++;
@@ -278,11 +289,24 @@ var gasLimitBump = 86;
 					// Put the address of the ERC20 token here:
 					TOKEN_ADDRESS = config2.contractAddress;
 	
-					const provider = new Provider('https://testnet.era.zksync.dev');
-				const wallet = new Wallet(config2.privateKey, provider);
+				var provider = null;
+				var wallet =  null;
 				 
-				const erc20 = getToken(hre, wallet);
+				var erc20 =  null;
 				
+				try{
+				
+				
+				provider = new Provider('https://testnet.era.zksync.dev');
+				wallet = new Wallet(config2.privateKey, provider);
+				 
+				erc20 = await getToken(hre, wallet);
+				}catch(error){
+						console.error('Error fetching provider:', error);
+					
+						await sleep(5000); // Wait for 5s before retrying
+						continue;
+				}
 					
 
 	try{
@@ -324,7 +348,19 @@ var gasLimitBump = 86;
 
 				PAYMASTER_ADDRESS = config2.contractAddressPayMaster;
 				  console.log(`Paymaster is ${PAYMASTER_ADDRESS}`);
-				  let paymasterBalance = await provider.getBalance(PAYMASTER_ADDRESS);
+				  var paymasterBalance = 0;
+				      try {
+							paymasterBalance = await provider.getBalance(PAYMASTER_ADDRESS);
+							console.log(`Paymaster Balance: ${paymasterBalance}`);
+					} catch (error) {
+						console.error('Error fetching balance:', error);
+						
+						await sleep(5000); // Wait for 5s before retrying
+						break;
+						// Additional error handling as needed
+					}
+				  
+				  
 				  console.log(`Paymaster ETH balance is ${paymasterBalance.toString()}`);
 									  
 				
