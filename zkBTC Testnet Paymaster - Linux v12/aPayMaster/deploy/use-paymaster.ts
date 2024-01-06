@@ -575,9 +575,6 @@ var transactionHashz;
 	 
 	  console.log("Transaction successfully sent, congradulations");
 	
-	 }else{
-	 
-	    console.log("Error contains " + error);
 	 }
 	 
 	 
