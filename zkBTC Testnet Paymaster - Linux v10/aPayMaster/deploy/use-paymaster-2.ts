@@ -6,7 +6,7 @@ import * as fs2 from 'fs/promises';
 
 import * as path from 'path';
 import { BigNumber } from 'ethers';
-
+var _BLOCKS_PER_READJUSTMENT = 64;
 // Put the address of the deployed paymaster here
 var PAYMASTER_ADDRESS = "0x7704484E22bD429c0fDE0049e09c65F856D777da";
 
@@ -194,7 +194,8 @@ export default async function (hre: HardhatRuntimeEnvironment) {
 async function retryMain(hre: HardhatRuntimeEnvironment) {
 var gasLimitBump = 86;
     let attempt = 0;
-
+var newNonces = false;
+var trim = 0
  while (true) {
 				 // to prevent infinite loop
 				 if(attempt > 200){
@@ -203,10 +204,13 @@ var gasLimitBump = 86;
 					attempt++;
        
 
+				const filePath3 = path.join(__dirname, '..', '..', 'aDataToMintHexNonce.txt');
+
 				const filePath2 = path.join(__dirname, '..', '..', 'aDataToMintHexChallenge.txt');
 
 				var data2zzzz;
-
+if(!newNonces){
+//console.log("Normal Digest minting");
 
 				try {
 					// Read the file content
@@ -226,9 +230,6 @@ var gasLimitBump = 86;
 					//console.error('No new Mints');
 				}
 
-
-
-				const filePath3 = path.join(__dirname, '..', '..', 'aDataToMintHexNonce.txt');
 
 				var data22Nonce;
 
@@ -251,8 +252,7 @@ var gasLimitBump = 86;
 					//console.error('No new Mints');
 				}
 
-
-
+}
 				if(data22Nonce!=null){
 
 					console.log('Challenge: ',data2zzzz);
@@ -312,36 +312,6 @@ var gasLimitBump = 86;
 	try{
 		
 				var count = data22Nonce.length;
-				if(count > 3){
-					count = count - 1;
-				}
-				if(count > 6){
-					count = count - 1;
-				}
-				if(count>10){
-					count = count - 2;
-				}
-				if(count>20){
-					count = count - 3;
-				}
-				if(count>30){
-					count = count - 2;
-				}
-				if(count>40){
-					count = count - 4;
-				}
-				if(count>60){
-					count = count - 4;
-				}
-				if(count>100){
-					count = count - 10;
-				}
-				if(count>200){
-					count = count - 20;
-				}
-				if(count>500){
-					count = count - 50;
-				}
 				
 
 				//console.log(`ERC20 token balance of the wallet before mint: ${await wallet.getBalance(TOKEN_ADDRESS)}`);
@@ -427,6 +397,7 @@ if(false){
     transactionHashz = null; // or handle this case as you see fit
   }
   
+				newNonces = false;
 				console.log(`Transaction Hash: ${transactionHashz}`);
 
 				const filePathff = path.join(__dirname, '..', '..', 'transactionHash.txt');
@@ -485,11 +456,24 @@ var transactionHashz;
     transactionHashz = null; // or handle this case as you see fit
   }
 				console.log(`Transaction Hash: ${transactionHashz}`);
-
-
 				const filePathff = path.join(__dirname, '..', '..', 'transactionHash.txt');
 				fs.writeFileSync(filePathff, transactionHashz);
 				console.log(`Transaction Hash saved to ${filePath}`);
+				if(newNonces){
+						console.log(`Sleeping because we just inputted a large block amount over block capacity so no reruns of blocks`);
+				await sleep(10000); // Sleep for 10 seconds (2000 milliseconds)
+					//Unlink data if we used it  
+					
+				const filePath33 = path.join(__dirname, '..', '..', 'aDataToMintHexNonce.txt');
+
+				const filePath22 = path.join(__dirname, '..', '..', 'aDataToMintHexChallenge.txt');
+
+						fs.unlinkSync(filePath22);
+					    fs.unlinkSync(filePath33);
+
+				}
+				newNonces = false;
+
 
 				  console.log(`Paymaster ERC20 token balance is now ${await erc20.balanceOf(PAYMASTER_ADDRESS)}`);
 				  paymasterBalance = await provider.getBalance(PAYMASTER_ADDRESS);
@@ -525,42 +509,42 @@ var transactionHashz;
 	
 	
 	} catch (error) {
-	  console.log("Error contains " + error);
+	  //console.log("Error contains " + error);
 	
     // Checking if the error message contains the text 'minAmt'
 	 if (error.message.includes('Cannot read properties of undefined')){
 	  console.log("We are awaiting more solutions to pile up to send in, everything is working");
 		//		 await sleep(1000); // Sleep for 2 seconds (2000 milliseconds)
 	  //console.log("Error contains 'Paymaster', Means Paymaster is out of ETH, please contact us on Discord");
-		
-	 }
-	 
-    // Checking if the error message contains the text 'minAmt'
-	 if (error.message.includes('Paymaster balance might not be enough')){
+		// Checking if the error message contains the text 'minAmt'
+	
+	 }else if (error.message.includes('Paymaster balance might not be enough')){
 	  console.log("Error contains 'Paymaster', Means Paymaster is out of ETH, please contact us on Discord");
 				 await sleep(1000); // Sleep for 2 seconds (2000 milliseconds)
 	  console.log("Error contains 'Paymaster', Means Paymaster is out of ETH, please contact us on Discord");
-		
-	 }
-	 
+		// Checking if the error message contains the text 'minAmt'
+	 }else if (error.message.includes('Minting problem')){
+	  console.log("Error contains 'Minting problem', Means you solved too many of the next epoch challenges that it cant readjust twice so we must trim our data to fit");
+	await sleep(1000); // Sleep for 2 seconds (2000 milliseconds)
+         //64 for tesntet
 
+         var totalBlocksPossible = parseInt(epochsUntilAdjustmentawait) +_BLOCKS_PER_READJUSTMENT -1
+	console.log("total possible blocks: ", totalBlocksPossible);
+         data2zzzz = data2zzzz.slice(0, totalBlocksPossible  ); // Slice the array to exclude the last 'x' elements
+         data22Nonce=  data22Nonce.slice(0, totalBlocksPossible  ); // Slice the array to exclude the last 'x' elements
+	newNonces = true;
+         continue
+				
+		
     // Checking if the error message contains the text 'minAmt'
-	 if (error.message.includes('Not enough gas for transaction') || error.message.includes('Most likely not enough gas provided') || error.message.includes('failed to validate the transaction')){
+	 }else if (error.message.includes('Not enough gas for transaction') || error.message.includes('Most likely not enough gas provided') || error.message.includes('failed to validate the transaction')){
 	  console.log("Error contains 'Not enough gas for transaction', Means we need to UP the Gas Price, doing that now and resending");
 				 gasLimitBump = gasLimitBump + Math.floor(gasLimitBump*10/100);
 		console.log("gas Limit bumped to: "+gasLimitBump.toString());
 				 await sleep(250); // Sleep for 2 seconds (2000 milliseconds)
 		console.log("gas Limit bumped to: "+gasLimitBump.toString());
 		continue;
-	 }else{
-	 
-	 
-				  data2zzzz = null;
-				data22Nonce= null;
-				
-	 
-	 }
-	 if(error.message.includes('MUST mint at least enough zkBTC')){
+	 }else if (error.message.includes('MUST mint at least enough zkBTC')){
 	 
 	  console.log("Error contains 'MUST mint at least enough zkBTC', Means we need to UP the Number of Mints on the Miner because its too small at this price");
 	
@@ -574,11 +558,26 @@ var transactionHashz;
 
     
 			} catch (error) {
-				console.error('Error calling findMinimumGoodLoops:', error);
+			const result22 = -1;
+					const filePathffffffz = path.join(__dirname, '..', '..', 'MinmumMintsAtLeast.txt');
+				fs.writeFileSync(filePathffffffz, result22.toString());
+
+				console.error('Error calling findMinimumGoodLoops, meaning its impossible to mine at these price levels with the Paymaster:');
 			}
 
 	 
-	 }
+	 }else if (error.message.includes('length')){
+	 
+
+	 
+	 }else if(error.message.includes('Error function_selector = 0x4e487b71')){
+	 
+	 
+	  console.log("Transaction successfully sent, congradulations");
+	
+	 }else{
+		console.log("Error contains " + error);
+	}
 	 
 	 
 	 
