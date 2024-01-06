@@ -25,7 +25,8 @@ Go to Downloaded Folder and Open Terminal
 
 
 TO RUN SCRIPT OPEN TERMINAL IN FOLDER AND TYPE
-
+chmod u+x 1runPayMaster_and_Miner
+chmod u+x testing_justPayMaster
 ./1runPayMaster_and_Miner
 
 to run the miner + paymaster
