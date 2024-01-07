@@ -363,7 +363,7 @@ if(false){
 				  });
 
 
-					var gasLimitUpdate = Math.floor(gasLimit*2/3*2/3*gasLimitBump/100);
+					var gasLimitUpdate = gasLimit;//Math.floor(gasLimit*2/3*2/3*gasLimitBump/100);
 					if(gasLimitUpdate < gasLimit){
 						gasLimit = gasLimitUpdate;
 					
@@ -475,14 +475,15 @@ var transactionHashz;
 				newNonces = false;
 
 
-				  console.log(`Paymaster ERC20 token balance is now ${await erc20.balanceOf(PAYMASTER_ADDRESS)}`);
-				  paymasterBalance = await provider.getBalance(PAYMASTER_ADDRESS);
+				 // console.log(`Paymaster ERC20 token balance is now ${await erc20.balanceOf(PAYMASTER_ADDRESS)}`);
+				//  paymasterBalance = await provider.getBalance(PAYMASTER_ADDRESS);
 
-				  console.log(`Paymaster ETH balance is now ${paymasterBalance.toString()}`);
-				  console.log(`ERC20 token balance of the the wallet after mint: ${await wallet.getBalance(TOKEN_ADDRESS)}`);
+				 // console.log(`Paymaster ETH balance is now ${paymasterBalance.toString()}`);
+				  //console.log(`ERC20 token balance of the the wallet after mint: ${await wallet.getBalance(TOKEN_ADDRESS)}`);
 			
 
-				 gasLimitBump = gasLimitBump - Math.floor(gasLimitBump*10/100);
+				var gasLimitUpdate = gasLimit;//Math.floor(gasLimit*2/3*2/3*gasLimitBump/100);
+					
 			try {
 			 var totalETHUSED = gasLimit*gasPrice;
 				const result = await erc20.findMinimumGoodLoops(totalETHUSED);
@@ -501,6 +502,9 @@ var transactionHashz;
 				const filePathffffffz = path.join(__dirname, '..', '..', 'MinmumMintsAtLeast.txt');
 				fs.writeFileSync(filePathffffffz, result.toString());
 			}
+			console.log("The PayMaster transaction has been confirmed by the network! Success!! ");
+			console.log("The PayMaster transaction has been confirmed by the network! Success!! ");
+	
 			await sleep(1000);
 			
 
@@ -510,7 +514,7 @@ var transactionHashz;
 	
 	
 	} catch (error) {
-	  console.log("Error contains " + error);
+	  	console.log("Error contains " + error);
 	
     // Checking if the error message contains the text 'minAmt'
 	 if (error.message.includes('Cannot read properties of undefined')){
@@ -576,9 +580,9 @@ var transactionHashz;
 	 
 	  console.log("Duplicate transactions detected getting rid of answers in miner");
 	  var transactionHashzzz ="0x750207aedaaf9abb7d485de5bcdec289a7ab4a58dddd6bbddbed8089ec289111";
-	console.log(`Fake Transaction Hash to insert to miner to fix it: ${transactionHashz}`);
+	console.log(`Fake Transaction Hash to insert to miner to fix it: ${transactionHashzzz}`);
 				const filePathff = path.join(__dirname, '..', '..', 'transactionHash.txt');
-				fs.writeFileSync(filePathff, transactionHashz);
+				fs.writeFileSync(filePathff, transactionHashzzz);
 	 }
 	 
 	 
@@ -644,6 +648,4 @@ var transactionHashz;
 
 
 }
-
-
 
