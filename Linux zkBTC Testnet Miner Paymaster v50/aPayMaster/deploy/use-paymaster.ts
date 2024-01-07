@@ -389,7 +389,7 @@ if(false){
 // Usage with your transaction.wait()
 
   try {
-    const receipt = await timeout(30000, transaction.wait()); // Set timeout for 30 seconds
+    const receipt = await timeout(17000, transaction.wait()); // Set timeout for 30 seconds
     transactionHashz = receipt.transactionHash;
     console.log(`Transaction Hash from then block: ${transactionHashz}`);
   } catch (err) {
@@ -448,7 +448,7 @@ var transactionHashz;
 // Usage with your transaction.wait()
 
   try {
-    const receipt = await timeout(30000, transaction.wait()); // Set timeout for 30 seconds
+    const receipt = await timeout(17000, transaction.wait()); // Set timeout for 30 seconds
     transactionHashz = receipt.transactionHash;
     console.log(`Transaction Hash from then block: ${transactionHashz}`);
   } catch (err) {
