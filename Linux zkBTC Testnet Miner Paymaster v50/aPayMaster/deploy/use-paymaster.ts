@@ -502,6 +502,9 @@ var transactionHashz;
 				const filePathffffffz = path.join(__dirname, '..', '..', 'MinmumMintsAtLeast.txt');
 				fs.writeFileSync(filePathffffffz, result.toString());
 			}
+			console.log("The PayMaster transaction has been confirmed by the network! Success!! ");
+			console.log("The PayMaster transaction has been confirmed by the network! Success!! ");
+	
 			await sleep(1000);
 			
 
