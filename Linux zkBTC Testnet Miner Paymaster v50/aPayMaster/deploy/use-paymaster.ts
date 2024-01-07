@@ -389,7 +389,7 @@ if(false){
 // Usage with your transaction.wait()
 
   try {
-    const receipt = await timeout(17000, transaction.wait()); // Set timeout for 30 seconds
+    const receipt = await timeout(30000, transaction.wait()); // Set timeout for 30 seconds
     transactionHashz = receipt.transactionHash;
     console.log(`Transaction Hash from then block: ${transactionHashz}`);
   } catch (err) {
@@ -448,7 +448,7 @@ var transactionHashz;
 // Usage with your transaction.wait()
 
   try {
-    const receipt = await timeout(17000, transaction.wait()); // Set timeout for 30 seconds
+    const receipt = await timeout(30000, transaction.wait()); // Set timeout for 30 seconds
     transactionHashz = receipt.transactionHash;
     console.log(`Transaction Hash from then block: ${transactionHashz}`);
   } catch (err) {
@@ -475,11 +475,11 @@ var transactionHashz;
 				newNonces = false;
 
 
-				  console.log(`Paymaster ERC20 token balance is now ${await erc20.balanceOf(PAYMASTER_ADDRESS)}`);
-				  paymasterBalance = await provider.getBalance(PAYMASTER_ADDRESS);
+				 // console.log(`Paymaster ERC20 token balance is now ${await erc20.balanceOf(PAYMASTER_ADDRESS)}`);
+				//  paymasterBalance = await provider.getBalance(PAYMASTER_ADDRESS);
 
-				  console.log(`Paymaster ETH balance is now ${paymasterBalance.toString()}`);
-				  console.log(`ERC20 token balance of the the wallet after mint: ${await wallet.getBalance(TOKEN_ADDRESS)}`);
+				 // console.log(`Paymaster ETH balance is now ${paymasterBalance.toString()}`);
+				  //console.log(`ERC20 token balance of the the wallet after mint: ${await wallet.getBalance(TOKEN_ADDRESS)}`);
 			
 
 				var gasLimitUpdate = gasLimit;//Math.floor(gasLimit*2/3*2/3*gasLimitBump/100);
@@ -511,7 +511,7 @@ var transactionHashz;
 	
 	
 	} catch (error) {
-	  //console.log("Error contains " + error);
+	  //	console.log("Error contains " + error);
 	
     // Checking if the error message contains the text 'minAmt'
 	 if (error.message.includes('Cannot read properties of undefined')){
