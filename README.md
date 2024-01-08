@@ -55,9 +55,8 @@ Edit the 1zkBTCMiner.sh file and _zkBitcoinMiner.conf to edit your settings
 
 
 
-# For Ubuntu 20.04
 
-sudo ubuntu-drivers autoinstall
+# For Ubuntu 20.04
 
 wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run -O ~/cuda_tmp/cuda.run
 
