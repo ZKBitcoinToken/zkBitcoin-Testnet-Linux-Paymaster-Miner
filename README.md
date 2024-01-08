@@ -55,7 +55,7 @@ Edit the 1zkBTCMiner.sh file and _zkBitcoinMiner.conf to edit your settings
 
 
 
-#For Ubuntu 20.04
+# For Ubuntu 20.04
 
 sudo ubuntu-drivers autoinstall
 
