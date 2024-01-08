@@ -52,3 +52,19 @@ Mines normally using your eth account to mint the tokens with no paymaster
 It should run!
 
 Edit the 1zkBTCMiner.sh file and _zkBitcoinMiner.conf to edit your settings
+
+
+
+#For Ubuntu 20.04
+
+sudo ubuntu-drivers autoinstall
+
+wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run -O ~/cuda_tmp/cuda.run
+
+sudo ./cuda_10.2.89_440.33.01_linux.run
+
+sudo chmod +x cuda_10.2.89_440.33.01_linux.run
+
+dont install 440 just the 10.2 toolkit
+
+sudo ubuntu-drivers autoinstall
