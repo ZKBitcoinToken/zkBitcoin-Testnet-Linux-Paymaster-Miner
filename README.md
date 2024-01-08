@@ -66,4 +66,101 @@ sudo chmod +x cuda_10.2.89_440.33.01_linux.run
 
 dont install 440 just the 10.2 toolkit
 
+# we had to install gcc 8
+
+Install the Desired GCC Version:
+Install the version of GCC that you want to use for the rest of your system. For example, if you want to use GCC 8(which is available in the Ubuntu 18.04 repositories), you can install it with the following command:
+
+bash
+
+sudo apt-get install gcc-8 g++-8
+
+Select the Default GCC Version:
+Use the update-alternatives command to set the default GCC version to the one you just installed. For example, if you installed GCC 8:
+
+bash
+
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 100
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 100
+
+Select the Default GCC Version:
+Use the update-alternatives command again to choose the default GCC version:
+
+bash
+
+sudo update-alternatives --config gcc
+sudo update-alternatives --config g++
+
+Select the version you want to set as default from the list.
+
+Verify the GCC Version:
+Confirm that the desired GCC version is now the default:
+
+bash
+
+    gcc --version
+
+    This should display the version information for the GCC version you selected.
+
+Now, you should have the desired GCC version as the default for your system, and you can proceed with your CUDA installation without the --override flag, using the newly selected GCC version. (edited)
+[5:52 AM]
+The error message you received indicates that the Nouveau kernel driver is currently in use on your system. The NVIDIA driver cannot be installed while Nouveau is active because they are incompatible. To proceed, you need to disable the Nouveau driver. Here's how you can do that:
+
+    Edit the Grub Configuration:
+
+    Open the Grub configuration file in a text editor using the following command:
+
+    bash
+
+sudo nano /etc/default/grub
+
+Locate the line that starts with GRUB_CMDLINE_LINUX_DEFAULT and add "nouveau.modeset=0" to the kernel boot options. It should look something like this:
+
+bash
+
+GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nouveau.modeset=0"
+
+Save the file and exit the text editor.
+
+Update Grub:
+
+After making the changes, update the Grub configuration with the following command:
+
+bash
+
+sudo update-grub
+
+Blacklist Nouveau:
+
+Create a file to blacklist the Nouveau driver. Create a new file called nouveau-blacklist.conf in the /etc/modprobe.d/ directory:
+
+bash
+
+sudo nano /etc/modprobe.d/nouveau-blacklist.conf
+
+Add the following lines to the file:
+
+bash
+
+blacklist nouveau
+options nouveau modeset=0
+
+Save the file and exit the text editor.
+
+Regenerate Initramfs:
+
+Regenerate the initramfs to apply the changes:
+
+bash
+
+sudo update-initramfs -u
+
+Reboot:
+
+Reboot your system to apply the changes:
+
+bash
+
+sudo reboot
+
 sudo ubuntu-drivers autoinstall
