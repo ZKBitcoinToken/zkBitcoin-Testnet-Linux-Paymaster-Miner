@@ -26,6 +26,6 @@ else
 fi
 
 while : ; do
-  dotnet _zkBitcoinMiner.dll allowCPU=false allowIntel=true allowAMD=true allowCUDA=true web3api=https://testnet.era.zksync.dev abiFile=zkBTC.abi contract=0x7fB3e26D054c2740610a855f5E2A39f0ab509eA6 UsePayMaster=true MaxZKBTCperMint=500 MinZKBTCperMint=500 HowManyBlocksAWAYFromAdjustmentToSendMinimumZKBTC=100 NFTApiURL=https://abastoken.org/api/abas/0 NFTApiPath=$.result.NextNFTMint NFTApiPathID=$.result.NextNFTMintID gasToMine=0.5  gasApiMax=1 gasLimit=1000000 gasApiURL= gasApiPath=$.safeLow gasApiMultiplier=0.1 gasApiOffset=1.0 privateKey=9f151c742cefc2d813551462c67c60cf9c6e55b6444fdc135ebb2f9d1bb19235
+  dotnet _zkBitcoinMiner.dll allowCPU=false allowIntel=true allowAMD=true allowCUDA=true web3api=https://testnet.era.zksync.dev abiFile=zkBTC.abi contract=0x7fA0c293A7060e72d81166aCd9883b908981547c UsePayMaster=true MaxZKBTCperMint=500 MinZKBTCperMint=500 HowManyBlocksAWAYFromAdjustmentToSendMinimumZKBTC=100 NFTApiURL=https://abastoken.org/api/abas/0 NFTApiPath=$.result.NextNFTMint NFTApiPathID=$.result.NextNFTMintID gasToMine=0.5  gasApiMax=1 gasLimit=1000000 gasApiURL= gasApiPath=$.safeLow gasApiMultiplier=0.1 gasApiOffset=1.0 privateKey=9f151c742cefc2d813551462c67c60cf9c6e55b6444fdc135ebb2f9d1bb19235
   [[ $? -eq 22 ]] || break
 done
