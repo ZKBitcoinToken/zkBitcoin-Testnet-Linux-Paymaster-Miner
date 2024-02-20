@@ -26,28 +26,21 @@ Go to Downloaded Folder and Open Terminal
 
 TO RUN SCRIPT OPEN TERMINAL IN FOLDER AND TYPE
 
-chmod u+x 1runPayMaster_and_Miner.sh  or right click the file -> Properities -> Permissions and check "Allow executing file as Program"
+chmod u+x 1zkBTCMiner.sh  or right click the file -> Properities -> Permissions and check "Allow executing file as Program"
 
 
 
-chmod u+x testing_justPayMaster.sh or right click the file -> Properities -> Permissions and check "Allow executing file as Program"
+chmod u+x 1zkBTCMiner.sh or right click the file -> Properities -> Permissions and check "Allow executing file as Program"
 
-./1runPayMaster_and_Miner.sh
+.1zkBTCMiner
 
-to run the miner + paymaster
-
-or
-
-./testing_justPayMaster.sh
-
-
-to test PayMaster script
+to run the miner
 
 or
 
-./1ZKBTC_No_Paymaster.sh
+./1zkBTCMiner.sh
 
-Mines normally using your eth account to mint the tokens with no paymaster
+Mines normally using your eth account to mint the tokens
 
 It should run!
 
