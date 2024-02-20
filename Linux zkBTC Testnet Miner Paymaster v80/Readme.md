@@ -32,7 +32,7 @@ chmod u+x 1zkBTCMiner.sh  or right click the file -> Properities -> Permissions 
 
 chmod u+x 1zkBTCMiner.sh or right click the file -> Properities -> Permissions and check "Allow executing file as Program"
 
-.1zkBTCMiner
+./1zkBTCMiner.sh
 
 to run the miner
 
